@@ -13,7 +13,7 @@
 <div class="auth-modal" id="auth-modal">
 <div class="auth-content" onclick="event.stopPropagation()">
 <div class="auth-logo">NIGHTLINE</div>
-<div class="lang-row"><button class="lang-toggle" onclick="toggleLanguage()">EN</button></div>
+<div class="lang-row"><button class="lang-toggle" onclick="toggleLanguage()">Language: ENG</button></div>
 <div class="auth-tabs">
 <button class="auth-tab active" data-i18n="login" onclick="switchAuthTab('login',this)">ВОЙТИ</button>
 <button class="auth-tab" data-i18n="register" onclick="switchAuthTab('register',this)">СОЗДАТЬ</button>
@@ -39,6 +39,17 @@
 <div class="confirm-buttons">
 <button class="btn-confirm yes" data-i18n="yes" onclick="confirmLogout()">ДА</button>
 <button class="btn-confirm no" data-i18n="no" onclick="closeConfirmModal('logout-modal')">НЕТ</button>
+</div>
+</div>
+</div>
+
+<!-- Удаление аккаунта -->
+<div class="confirm-modal" id="delete-acc-modal" onclick="closeConfirmModal('delete-acc-modal')">
+<div class="confirm-content" onclick="event.stopPropagation()">
+<div class="confirm-title" data-i18n="deleteAccConfirm">УДАЛИТЬ АККАУНТ?</div>
+<div class="confirm-buttons">
+<button class="btn-confirm yes" data-i18n="yes" onclick="confirmDeleteAcc()" style="border-color:#f85149;color:#f85149">ДА</button>
+<button class="btn-confirm no" data-i18n="no" onclick="closeConfirmModal('delete-acc-modal')">НЕТ</button>
 </div>
 </div>
 </div>
@@ -81,9 +92,10 @@
 <div class="titles-content" onclick="event.stopPropagation()">
 <div class="confirm-title" data-i18n="settings">НАСТРОЙКИ</div>
 <div class="confirm-buttons column">
-<button class="btn-confirm yes lang-toggle" onclick="toggleLanguage()">EN</button>
+<button class="btn-confirm yes lang-toggle" onclick="toggleLanguage()">Language: ENG</button>
 <button class="btn-confirm yes" data-i18n="sound" onclick="openSoundSettings()">ЗВУК</button>
 <button class="btn-confirm yes" data-i18n="password" onclick="openPasswordOptionsModal()">ПАРОЛЬ</button>
+<button class="btn-confirm yes" data-i18n="deleteAcc" onclick="openDeleteAccModal()" style="border-color:#f85149;color:#f85149">УДАЛИТЬ АККАУНТ</button>
 </div>
 </div>
 </div>
@@ -105,6 +117,15 @@
 <div class="sound-label"><span data-i18n="musicVol">ГРОМКОСТЬ МУЗЫКИ (скоро)</span><span class="sound-value" id="music-vol-val">300</span></div>
 <input type="range" class="sound-slider" id="music-vol" min="0" max="1200" value="300" oninput="changeMusicVol(this.value)">
 <button class="btn-confirm no" data-i18n="reset" onclick="resetSoundSettings()" style="position:absolute;bottom:10px;right:10px;font-size:.4rem;padding:.4rem">СБРОС</button>
+</div>
+</div>
+
+<!-- Блокировка модификатора -->
+<div class="confirm-modal" id="modifier-locked-modal" onclick="closeConfirmModal('modifier-locked-modal')">
+<div class="confirm-content" onclick="event.stopPropagation()">
+<span style="font-size:2rem;display:block;margin-bottom:1rem">🔒</span>
+<div class="confirm-title" id="modifier-lock-msg" data-i18n="modLockMsg">Достигните 30 уровня для модификаторов</div>
+<button class="btn-confirm no" data-i18n="close" onclick="closeConfirmModal('modifier-locked-modal')">ЗАКРЫТЬ</button>
 </div>
 </div>
 
@@ -213,11 +234,17 @@
 <div id="page-leaderboard" class="page">
 <section class="section">
 <h2 class="section-title" data-i18n="topLevel">ТОП ПО УРОВНЮ</h2>
+<div id="leaderboard-locked" class="leaderboard-locked" style="display:none">
+<span class="lock-icon">🔒</span>
+<span class="lock-text" id="lock-msg" data-i18n="lockMsg">Достигните 50 уровня чтобы разблокировать таблицу лидеров</span>
+</div>
+<div id="leaderboard-content">
 <div class="leaderboard-tabs">
 <button class="leaderboard-tab active" data-i18n="byLevel" onclick="switchLeaderboardTab('level',this)">ПО УРОВНЮ</button>
 <button class="leaderboard-tab" data-i18n="byTime" onclick="switchLeaderboardTab('time',this)">ПО ВРЕМЕНИ</button>
 </div>
 <div class="leaderboard-list" id="leaderboard-list"></div>
+</div>
 </section>
 </div>
 
@@ -259,4 +286,4 @@
 
 <script src="script.js"></script>
 </body>
-</html>
+  </html>
